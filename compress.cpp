@@ -1,12 +1,14 @@
 /* 
  * Madeline Hsia
  * Timothy Koh
- * File: HCTree.cpp
- * Implementing functions in HCTree.hpp
+ * File: compress.cpp
+ * main for encoding
  */ 
 
 #include "HCTree.hpp"
+#include "HCNode.hpp"
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -48,9 +50,11 @@ int main(int argc, char** argv) {
 
 	 inFile.open(argv[1],ifstream::in);
 
-	 //for loop to use encode ??????? 
-	 for (int i=0; i < freqs.size(); i++) {
-	 	huffmanTree.encode(i, outFile);
+	 //loop to use encode ??????? 
+	 while(1) {
+	 	char symbol = inFile.get();
+	 	if (inFile.eof()) break;
+	 	huffmanTree.encode(symbol, outFile);
 	 }
 
 	 return 0;
