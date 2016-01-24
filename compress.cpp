@@ -6,6 +6,8 @@
  */ 
 
 #include "HCTree.hpp"
+#include <iostream>
+
 using namespace std;
 
 int main(int argc, char** argv) {
@@ -18,34 +20,38 @@ int main(int argc, char** argv) {
 	 */ 
 
 	 ifstream inFile;
-	 inFile.open(argv[1]);
+	 inFile.open(argv[1],ifstream::in);
 
 	 vector<int> freqs(256,0);
 
 	 //computing frequency
 	 while (1) {
-	 	int theSymbol= inFile.get();
+	 	int theSymbol = inFile.get();
 	 	if (inFile.eof()) break;
 	 	freqs[theSymbol]++;
 	 }
 
-	 in.close();
+	 inFile.close();
 
+	 //build huffman tree
 	 HCTree huffmanTree;
 	 huffmanTree.build(freqs);
 
+	 //create new file to write
 	 ofstream outFile;
-	 outFile.open(argv[2]);
+	 outFile.open(argv[2],ofstream::out);
 
+	 //for each element, print its frequency (header????)
 	 for (int i=0; i<freqs.size(); i++) {
 	 	outFile << freqs[i];
 	 }
 
-	 in.open(argv[1]);
+	 inFile.open(argv[1],ifstream::in);
 
-	 
+	 //for loop to use encode ??????? 
+	 for (int i=0; i < freqs.size(); i++) {
+	 	huffmanTree.encode(i, outFile);
+	 }
 
-
-
-
+	 return 0;
 }
