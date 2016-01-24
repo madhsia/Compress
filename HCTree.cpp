@@ -7,6 +7,7 @@
 
  #include "HCTree.hpp"
  #include <queue>
+ #include <string>
 
  using namespace std;
 
@@ -73,7 +74,7 @@ void HCTree::build(const vector<int>& freqs) {
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT 
  *  BE USED IN THE FINAL SUBMISSION.
  */
-void HCTree::encode(byte symbol, ofstream& out) const {
+/*void HCTree::encode(byte symbol, ofstream& out) const {
 	HCNode* n = leaves[symbol];
 	//stack<int> s;
 
@@ -86,6 +87,27 @@ void HCTree::encode(byte symbol, ofstream& out) const {
 		}
 		n = n->p;
 	}
+} */
+
+	void HCTree::encode(byte symbol, ofstream& out) const {
+	HCNode* n = leaves[symbol];
+	string code;
+
+	while (n != root) {
+		if (n == n->p->c0) {
+			code.append("0");
+		}
+		else {
+			code.append("1");
+		}
+		n = n->p;
+	}
+	//reversing the string
+	string reverse = "";
+	for(int i = 0; i < code.length(); i++) {
+		reverse = code[i] + reverse;
+	}
+	out << reverse;
 }
 
 

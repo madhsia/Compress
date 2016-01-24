@@ -78,7 +78,6 @@ public:
      *  IN THE FINAL SUBMISSION.
      */
     int decode(ifstream& in) const;
-
 };
 
 #endif // HCTREE_HPP
