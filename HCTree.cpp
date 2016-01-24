@@ -21,7 +21,7 @@
  *  POSTCONDITION:  root points to the root of the trie,
  *  and leaves[i] points to the leaf node containing byte i.
  */
-void build(const vector<int>& freqs) {
+void HCNode::build(const vector<int>& freqs) {
 	for (unsigned int i=0; i < freqs.size(); i++) {
 		if (freqs[i] != 0) {
 			char data = i;
@@ -67,32 +67,6 @@ void build(const vector<int>& freqs) {
      }
 }
 
-/** Write to the given BitOutputStream
- *  the sequence of bits coding the given symbol.
- *  PRECONDITION: build() has been called, to create the coding
- *  tree, and initialize root pointer and leaves vector.
- 
-void encode(byte symbol, BitOutputStream& out) const {
-	HCNode* current = leaves[symbol];
-	stack<int> s;
-
-	while (current->p != nullptr) {
-		HCNode* p = current->p;
-
-		if (p->c0 == current) {
-			s.push(0);
-		}
-		else if (p->c1 == current) {
-			s.push(1);
-		}
-		current = p;
-	}
-	while (!s.empty()) {
-		out.writeBit(s.top());
-		s.pop();
-	}
-}*/
-
 /** Write to the given ofstream
  *  the sequence of bits (as ASCII) coding the given symbol.
  *  PRECONDITION: build() has been called, to create the coding
@@ -100,15 +74,19 @@ void encode(byte symbol, BitOutputStream& out) const {
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT 
  *  BE USED IN THE FINAL SUBMISSION.
  */
-void encode(byte symbol, ofstream& out) const {
-	
-	if (n->isZeroChild) {
-		out << '0';
-	}
-	else {
-		out << '1';
-	}
+void HCNode::encode(byte symbol, ofstream& out) const {
+	HCNode* n = leaves[symbol];
+	stack<int> s;
 
+	while (n != root) {
+		if (n == n->p->c0) {
+			out << '0';
+		}
+		else {
+			out << '1';
+		}
+		n = n->p;
+	}
 }
 
 
@@ -119,5 +97,19 @@ void encode(byte symbol, ofstream& out) const {
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT BE USED
  *  IN THE FINAL SUBMISSION.
  */
-int decode(ifstream& in) const;
+int HCNode::decode(ifstream& in) const {
+	HCNode* n = root;
+	int num;
+
+	while (n->c1 != 0 || n->c0 != 0) {
+		in >> num;
+		if (num == 0) {
+			n = n->c0;
+		}
+		else if (num == 1) {
+			n = n->c1;
+		}
+	}
+	return (int)n->symbol;
+}
 
