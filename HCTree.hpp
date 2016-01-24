@@ -27,7 +27,8 @@ public:
  *  of unsigned chars.
  */
 class HCTree {
-private:
+//private:
+public:
     HCNode* root;
     vector<HCNode*> leaves;
 

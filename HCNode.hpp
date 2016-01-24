@@ -41,7 +41,7 @@ ostream& operator<<(ostream& stm, const HCNode& n) {
     stm << "[" << n.count << "," << (int) (n.symbol) << "]";
     return stm;
 }
-  bool comp(HCNode* one, HCNode* other);
 
+  bool comp(HCNode* one, HCNode* other);
 
 #endif // HCNODE_HPP
