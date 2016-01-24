@@ -21,7 +21,7 @@
  *  POSTCONDITION:  root points to the root of the trie,
  *  and leaves[i] points to the leaf node containing byte i.
  */
-void HCNode::build(const vector<int>& freqs) {
+void HCTree::build(const vector<int>& freqs) {
 	for (unsigned int i=0; i < freqs.size(); i++) {
 		if (freqs[i] != 0) {
 			char data = i;
@@ -37,29 +37,28 @@ void HCNode::build(const vector<int>& freqs) {
 	for (unsigned int i=0; i < leaves.size(); i++) {
 		if (leaves[i]) {
 			leavesPQ.push(leaves[i]);
-			count++;
+			//count++;
 		}
 	}
 
     while (!leavesPQ.empty()) {
      	if (leavesPQ.size() == 1) {
-     		root = leavesQ.top();
-     		leavesQ.pop();
+     		root = leavesPQ.top();
+     		leavesPQ.pop();
+     		break;
      	}
 
      	HCNode* node1;
      	HCNode* node2;
 
-     	first = leavesPQ.top();
+     	node1 = leavesPQ.top();
      	leavesPQ.pop();
-     	second = leavesPQ.top();
+     	node2 = leavesPQ.top();
      	leavesPQ.pop();
 
-     	int sum = first.count + second.count;
-     	HCNode* sumCount = new HCNode(sum, 0);
+     	int sum = node1->count + node2->count;
+     	HCNode* sumCount = new HCNode(sum, node1->symbol, node1, node2);
 
-     	sumCount->c0 = node1;
-     	sumCount->c1 = node2;
      	node1->p = sumCount;
      	node2->p = sumCount;
 
@@ -74,9 +73,9 @@ void HCNode::build(const vector<int>& freqs) {
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT 
  *  BE USED IN THE FINAL SUBMISSION.
  */
-void HCNode::encode(byte symbol, ofstream& out) const {
+void HCTree::encode(byte symbol, ofstream& out) const {
 	HCNode* n = leaves[symbol];
-	stack<int> s;
+	//stack<int> s;
 
 	while (n != root) {
 		if (n == n->p->c0) {
@@ -97,7 +96,7 @@ void HCNode::encode(byte symbol, ofstream& out) const {
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT BE USED
  *  IN THE FINAL SUBMISSION.
  */
-int HCNode::decode(ifstream& in) const {
+int HCTree::decode(ifstream& in) const {
 	HCNode* n = root;
 	int num;
 

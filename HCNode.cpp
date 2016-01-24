@@ -11,7 +11,7 @@
 *  We want small counts to have high priority.
 *  And we want to break ties deterministically.
 */
-bool operator<(const HCNode& other) {
+bool HCNode::operator<(const HCNode& other) {
 	if (count != other.count) {
 		return count > other.count;
 	}
