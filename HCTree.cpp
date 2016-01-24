@@ -6,6 +6,7 @@
  */ 
 
  #include "HCTree.hpp"
+ #include <queue>
 
  using namespace std;
 
@@ -30,8 +31,8 @@ void build(const vector<int>& freqs) {
 		}
 	}
 
-	typedef priority_queue<HCNode*, vector<HCNode*>, HCNodePtrComp> huffmanQ;
-	huffmanQ leavesPQ;
+	typedef priority_queue<HCNode*, vector<HCNode*>, HCNodePtrComp> pq;
+	pq leavesPQ;
 
 	for (unsigned int i=0; i < leaves.size(); i++) {
 		if (leaves[i]) {
@@ -70,8 +71,27 @@ void build(const vector<int>& freqs) {
  *  the sequence of bits coding the given symbol.
  *  PRECONDITION: build() has been called, to create the coding
  *  tree, and initialize root pointer and leaves vector.
- */
-void encode(byte symbol, BitOutputStream& out) const;
+ 
+void encode(byte symbol, BitOutputStream& out) const {
+	HCNode* current = leaves[symbol];
+	stack<int> s;
+
+	while (current->p != nullptr) {
+		HCNode* p = current->p;
+
+		if (p->c0 == current) {
+			s.push(0);
+		}
+		else if (p->c1 == current) {
+			s.push(1);
+		}
+		current = p;
+	}
+	while (!s.empty()) {
+		out.writeBit(s.top());
+		s.pop();
+	}
+}*/
 
 /** Write to the given ofstream
  *  the sequence of bits (as ASCII) coding the given symbol.
@@ -80,14 +100,17 @@ void encode(byte symbol, BitOutputStream& out) const;
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT 
  *  BE USED IN THE FINAL SUBMISSION.
  */
-void encode(byte symbol, ofstream& out) const;
+void encode(byte symbol, ofstream& out) const {
+	
+	if (n->isZeroChild) {
+		out << '0';
+	}
+	else {
+		out << '1';
+	}
 
+}
 
-/** Return symbol coded in the next sequence of bits from the stream.
- *  PRECONDITION: build() has been called, to create the coding
- *  tree, and initialize root pointer and leaves vector.
- */
-int decode(BitInputStream& in) const;
 
 /** Return the symbol coded in the next sequence of bits (represented as 
  *  ASCII text) from the ifstream.
