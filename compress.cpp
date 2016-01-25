@@ -48,13 +48,21 @@ int main(int argc, char** argv) {
 	 	outFile << freqs[i] << "\n";
 	 }
 
+	 //outFile << "\nCode: \n";
+
 	 inFile.open(argv[1],ifstream::in);
 
-	 //loop to output file using encoded code
-	 while(1) {
-	 	char symbol = inFile.get();
-	 	if (inFile.eof()) break;
-	 	huffmanTree.encode(symbol, outFile);
+	 //One character edge case
+	 if(huffmanTree.root->c0 == 0 && huffmanTree.root->c1 == 0) {
+	 	outFile << huffmanTree.root->count << huffmanTree.root->symbol; 
+	 }
+	 else {
+		//loop to output file using encoded code
+		while(1) {
+			int symbol = inFile.get();
+			if (inFile.eof()) break;
+			huffmanTree.encode(symbol, outFile);
+		}
 	 }
 	 return 0;
 }
