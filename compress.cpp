@@ -43,9 +43,9 @@ int main(int argc, char** argv) {
 	 ofstream outFile;
 	 outFile.open(argv[2],ofstream::out);
 
-	 //for each element, print its frequency (header????)
+	 //for each element, print its frequency
 	 for (int i=0; i<freqs.size(); i++) {
-	 	outFile << freqs[i];
+	 	outFile << freqs[i] << "\n";
 	 }
 
 	 inFile.open(argv[1],ifstream::in);

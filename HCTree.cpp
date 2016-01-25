@@ -74,22 +74,7 @@ void HCTree::build(const vector<int>& freqs) {
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT 
  *  BE USED IN THE FINAL SUBMISSION.
  */
-/*void HCTree::encode(byte symbol, ofstream& out) const {
-	HCNode* n = leaves[symbol];
-	//stack<int> s;
-
-	while (n != root) {
-		if (n == n->p->c0) {
-			out << '0';
-		}
-		else {
-			out << '1';
-		}
-		n = n->p;
-	}
-} */
-
-	void HCTree::encode(byte symbol, ofstream& out) const {
+void HCTree::encode(byte symbol, ofstream& out) const {
 	HCNode* n = leaves[symbol];
 	string code;
 
@@ -107,7 +92,7 @@ void HCTree::build(const vector<int>& freqs) {
 	for(int i = 0; i < code.length(); i++) {
 		reverse = code[i] + reverse;
 	}
-	out << reverse;
+	out << reverse << "\n";
 }
 
 
