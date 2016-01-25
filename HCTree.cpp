@@ -24,6 +24,7 @@
  *  and leaves[i] points to the leaf node containing byte i.
  */
 void HCTree::build(const vector<int>& freqs) {
+	//creating the forest 
 	for (unsigned int i=0; i < freqs.size(); i++) {
 		if (freqs[i] != 0) {
 			char data = i;
@@ -33,9 +34,11 @@ void HCTree::build(const vector<int>& freqs) {
 		}
 	}
 
+	//creating priority queue
 	typedef priority_queue<HCNode*, vector<HCNode*>, HCNodePtrComp> pq;
 	pq leavesPQ;
 
+	//putting leaves in priority queue
 	for (unsigned int i=0; i < leaves.size(); i++) {
 		if (leaves[i]) {
 			leavesPQ.push(leaves[i]);
@@ -43,28 +46,38 @@ void HCTree::build(const vector<int>& freqs) {
 		}
 	}
 
-    while (!leavesPQ.empty()) {
-     	if (leavesPQ.size() == 1) {
-     		root = leavesPQ.top();
-     		leavesPQ.pop();
-     		break;
-     	}
+	//if there's only one leaf
+	if (leavesPQ.size() == 1) {
+		//add empty node
+		leavesPQ.push(new HCNode(0,0));
+	}
 
+	//while there's more than 1 leaves
+    while (leavesPQ.size() > 1) {
+    	//create the first two nodes to be merged
      	HCNode* node1;
      	HCNode* node2;
+     	//get the two smallest nodes, remove from PQ
      	node1 = leavesPQ.top();
      	leavesPQ.pop();
      	node2 = leavesPQ.top();
      	leavesPQ.pop();
 
+     	//sum their count and create new parent that is the sum of count
+     	//with children node1,node2
      	int sum = node1->count + node2->count;
      	HCNode* sumCount = new HCNode(sum, node1->symbol, node1, node2);
 
+     	//set the parent of node1 and node2
      	node1->p = sumCount;
      	node2->p = sumCount;
 
+     	//add parent to PQ
      	leavesPQ.push(sumCount);
      }
+    //set root
+    root = leavesPQ.top();
+
 }
 
 /** Write to the given ofstream

@@ -16,8 +16,6 @@ using namespace std;
 int main(int argc, char** argv) {
 
 	string frequency;
-	int symCount =0;
-	int bytes =0;
 
 	ifstream inFile;
 	ofstream outFile;
@@ -41,10 +39,6 @@ int main(int argc, char** argv) {
 
 	//call decode on each encoded symbol
 	outFile.open(argv[2], ofstream::out);
-/*
-	for (int i=0; i < bytes; i++) {
-		//????????
-	} */
 
 	while (1) {
 		int symbol = inFile.get();
