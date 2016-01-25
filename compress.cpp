@@ -48,6 +48,8 @@ int main(int argc, char** argv) {
 	 	outFile << freqs[i] << "\n";
 	 }
 
+	 outFile << "\nCode:\n"; 
+
 	 inFile.open(argv[1],ifstream::in);
 
 	 //loop to use encode ??????? 
@@ -56,6 +58,5 @@ int main(int argc, char** argv) {
 	 	if (inFile.eof()) break;
 	 	huffmanTree.encode(symbol, outFile);
 	 }
-
 	 return 0;
 }

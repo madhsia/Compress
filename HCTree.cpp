@@ -92,7 +92,7 @@ void HCTree::encode(byte symbol, ofstream& out) const {
 	for(int i = 0; i < code.length(); i++) {
 		reverse = code[i] + reverse;
 	}
-	out << reverse << "\n";
+	out << reverse;
 }
 
 
