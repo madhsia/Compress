@@ -64,5 +64,9 @@ int main(int argc, char** argv) {
 			huffmanTree.encode(symbol, outFile);
 		}
 	 }
+
+	 inFile.close();
+	 outFile.close();
+
 	 return 0;
 }
