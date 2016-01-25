@@ -104,7 +104,7 @@ void HCTree::encode(byte symbol, ofstream& out) const {
  *  IN THE FINAL SUBMISSION.
  */
 int HCTree::decode(ifstream& in) const {
-	HCNode* n = root;
+/*	HCNode* n = root;
 	int num;
 
 	while (n->c1 != 0 || n->c0 != 0) {
@@ -115,7 +115,26 @@ int HCTree::decode(ifstream& in) const {
 		else if (num == 1) {
 			n = n->c1;
 		}
-	}
+	} 
+	return (int)n->symbol; */
+
+	HCNode* n = root;
+	int data = 0;
+
+	//cout << data;
+
+	//going down the tree to find the symbol
+	while (n->c1 != 0 || n->c0 != 0) {
+		//converting the ascii value to decimal
+		data = in.get() - '0';
+		if (data == 0) {
+			n = n->c0;
+		}
+		else if (data == 1) {
+			n = n->c1;
+		}
+	} 
+	//return the current leaf's symbol
 	return (int)n->symbol;
 }
 

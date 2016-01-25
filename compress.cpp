@@ -19,8 +19,7 @@ int main(int argc, char** argv) {
 	 * find code for every symbol
 	 * create new compressed file by saving entire code at top of file
 	 * followed by code for each symbol
-	 */ 
-
+	 */
 	 ifstream inFile;
 	 inFile.open(argv[1],ifstream::in);
 
