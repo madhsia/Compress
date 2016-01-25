@@ -6,6 +6,7 @@
  */ 
 
  #include "HCTree.hpp"
+ #include "HCNode.hpp"
  #include <queue>
  #include <string>
 
@@ -51,7 +52,6 @@ void HCTree::build(const vector<int>& freqs) {
 
      	HCNode* node1;
      	HCNode* node2;
-
      	node1 = leavesPQ.top();
      	leavesPQ.pop();
      	node2 = leavesPQ.top();
@@ -104,20 +104,6 @@ void HCTree::encode(byte symbol, ofstream& out) const {
  *  IN THE FINAL SUBMISSION.
  */
 int HCTree::decode(ifstream& in) const {
-/*	HCNode* n = root;
-	int num;
-
-	while (n->c1 != 0 || n->c0 != 0) {
-		in >> num;
-		if (num == 0) {
-			n = n->c0;
-		}
-		else if (num == 1) {
-			n = n->c1;
-		}
-	} 
-	return (int)n->symbol; */
-
 	HCNode* n = root;
 	int data = 0;
 
