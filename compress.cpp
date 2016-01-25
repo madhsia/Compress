@@ -48,11 +48,9 @@ int main(int argc, char** argv) {
 	 	outFile << freqs[i] << "\n";
 	 }
 
-	 outFile << "\nCode:\n"; 
-
 	 inFile.open(argv[1],ifstream::in);
 
-	 //loop to use encode ??????? 
+	 //loop to output file using encoded code
 	 while(1) {
 	 	char symbol = inFile.get();
 	 	if (inFile.eof()) break;
