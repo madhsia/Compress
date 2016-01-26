@@ -121,14 +121,11 @@ int HCTree::decode(ifstream& in) const {
 	HCNode* n = root;
 	int data = 0;
 
-	//cout << data;
-
 	//going down the tree to find the symbol
 	while (n->c1 != 0 || n->c0 != 0) {
 		//converting the ascii value to decimal
 		data = in.get() - '0';
 		if (in.eof()) return 0;
-		//cout << data << "\n";
 		if (data == 0) {
 			n = n->c0;
 		}
