@@ -50,19 +50,19 @@ int main(int argc, char** argv) {
 	 //outFile << "\nCode: \n";
 
 	 inFile.open(argv[1],ifstream::in);
-
+/*
 	 //One character edge case
 	 if(huffmanTree.root->c0 == 0 && huffmanTree.root->c1 == 0) {
 	 	outFile << huffmanTree.root->count << huffmanTree.root->symbol; 
-	 }
-	 else {
+	 } */
+	 //else {
 		//loop to output file using encoded code
 		while(1) {
 			int symbol = inFile.get();
 			if (inFile.eof()) break;
 			huffmanTree.encode(symbol, outFile);
 		}
-	 }
+	 //}
 
 	 inFile.close();
 	 outFile.close();

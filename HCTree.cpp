@@ -42,7 +42,6 @@ void HCTree::build(const vector<int>& freqs) {
 	for (unsigned int i=0; i < leaves.size(); i++) {
 		if (leaves[i]) {
 			leavesPQ.push(leaves[i]);
-			//count++;
 		}
 	}
 
@@ -63,6 +62,7 @@ void HCTree::build(const vector<int>& freqs) {
      	node2 = leavesPQ.top();
      	leavesPQ.pop();
 
+
      	//sum their count and create new parent that is the sum of count
      	//with children node1,node2
      	int sum = node1->count + node2->count;
@@ -74,9 +74,23 @@ void HCTree::build(const vector<int>& freqs) {
 
      	//add parent to PQ
      	leavesPQ.push(sumCount);
+/*
+     	leavesPQ1 = leavesPQ;
+		leavesPQ1.pop();
+
+     	int sum = leavesPQ.top()->count + leavesPQ1.top()->count;
+     	HCNode* sumCount = new HCNode(sum, leavesPQ.top()->symbol, leavesPQ.top(), leavesPQ1.top());
+
+     	leavesPQ.top()->p = sumCount;
+     	leavesPQ1.top()->p = sumCount;
+
+     	leavesPQ.pop();
+     	leavesPQ.pop();
+     	leavesPQ.push(sumCount); */
      }
     //set root
     root = leavesPQ.top();
+    leavesPQ.pop();
 
 }
 
@@ -89,6 +103,7 @@ void HCTree::build(const vector<int>& freqs) {
  */
 void HCTree::encode(byte symbol, ofstream& out) const {
 	HCNode* n = leaves[symbol];
+	cout << n->symbol << "\n";
 	string code;
 
 	while (n != root) {
@@ -106,6 +121,7 @@ void HCTree::encode(byte symbol, ofstream& out) const {
 		reverse = code[i] + reverse;
 	}
 	out << reverse;
+	cout << reverse << "\n";
 }
 
 
