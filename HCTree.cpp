@@ -74,6 +74,7 @@ void HCTree::build(const vector<int>& freqs) {
 
      	//add parent to PQ
      	leavesPQ.push(sumCount);
+<<<<<<< HEAD
      	root = leavesPQ.top();
 
 /*
@@ -93,6 +94,13 @@ void HCTree::build(const vector<int>& freqs) {
     //set root
     //root = leavesPQ.top();
     //leavesPQ.pop();
+=======
+     	//update root
+     	root = leavesPQ.top();
+     }
+    //set root
+	//root = leavesPQ.top();
+>>>>>>> cdf6f768fe459dd79c33eaa1f3ec6e5b316a36f0
 
 }
 
@@ -144,10 +152,13 @@ int HCTree::decode(ifstream& in) const {
 	while (n->c1 != 0 || n->c0 != 0) {
 		//converting the ascii value to decimal
 		data = in.get() - '0';
+		if (in.eof()) break;
+		cout << data << "\n";
 		if (data == 0) {
 			n = n->c0;
 		}
-		else if (data == 1) {
+		//else if (data == 1) {
+		else {
 			n = n->c1;
 		}
 	} 
