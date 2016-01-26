@@ -20,49 +20,39 @@ int main(int argc, char** argv) {
 	 * create new compressed file by saving entire code at top of file
 	 * followed by code for each symbol
 	 */
-	 ifstream inFile;
-	 inFile.open(argv[1],ifstream::in);
+	ifstream inFile;
+	inFile.open(argv[1],ifstream::in);
 
-	 vector<int> freqs(256,0);
+	vector<int> freqs(256,0);
 
-	 //computing frequency
-	 while (1) {
-	 	int theSymbol = inFile.get();
-	 	if (inFile.eof()) break;
-	 	freqs[theSymbol]++;
-	 }
+	//computing frequency
+	while (1) {
+		int theSymbol = inFile.get();
+		if (inFile.eof()) break;
+		freqs[theSymbol]++;
+	}
 
-	 inFile.close();
+	inFile.close();
 
-	 //build huffman tree
-	 HCTree huffmanTree;
-	 huffmanTree.build(freqs);
+	//build huffman tree
+	HCTree huffmanTree;
+	huffmanTree.build(freqs);
 
-	 //create new file to write
-	 ofstream outFile;
-	 outFile.open(argv[2],ofstream::out);
+	//create new file to write
+	ofstream outFile;
+	outFile.open(argv[2],ofstream::out);
 
-	 //for each element, print its frequency
-	 for (int i=0; i<freqs.size(); i++) {
-	 	outFile << freqs[i] << "\n";
-	 }
+	//for each element, print its frequency
+	for (int i=0; i<freqs.size(); i++) {
+		outFile << freqs[i] << "\n";
+	}
 
-	 //outFile << "\nCode: \n";
-
-	 inFile.open(argv[1],ifstream::in);
-/*
-	 //One character edge case
-	 if(huffmanTree.root->c0 == 0 && huffmanTree.root->c1 == 0) {
-	 	outFile << huffmanTree.root->count << huffmanTree.root->symbol; 
-	 } */
-	 //else {
-		//loop to output file using encoded code
-		while(1) {
-			int symbol = inFile.get();
-			if (inFile.eof()) break;
-			huffmanTree.encode(symbol, outFile);
-		}
-	 //}
+	inFile.open(argv[1],ifstream::in);
+	while(1) {
+		int symbol = inFile.get();
+		if (inFile.eof()) break;
+		huffmanTree.encode(symbol, outFile);
+	}
 
 	 inFile.close();
 	 outFile.close();

@@ -48,7 +48,8 @@ void HCTree::build(const vector<int>& freqs) {
 	//if there's only one leaf
 	if (leavesPQ.size() == 1) {
 		//add empty node
-		leavesPQ.push(new HCNode(0,0));
+		//leavesPQ.push(new HCNode(0,0));
+		root = leavesPQ.top();
 	}
 
 	//while there's more than 1 leaves
@@ -77,9 +78,6 @@ void HCTree::build(const vector<int>& freqs) {
      	//update root
      	root = leavesPQ.top();
      }
-    //set root
-	//root = leavesPQ.top();
-
 }
 
 /** Write to the given ofstream
