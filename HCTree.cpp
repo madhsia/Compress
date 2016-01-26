@@ -74,6 +74,8 @@ void HCTree::build(const vector<int>& freqs) {
 
      	//add parent to PQ
      	leavesPQ.push(sumCount);
+     	root = leavesPQ.top();
+
 /*
      	leavesPQ1 = leavesPQ;
 		leavesPQ1.pop();
@@ -89,8 +91,8 @@ void HCTree::build(const vector<int>& freqs) {
      	leavesPQ.push(sumCount); */
      }
     //set root
-    root = leavesPQ.top();
-    leavesPQ.pop();
+    //root = leavesPQ.top();
+    //leavesPQ.pop();
 
 }
 

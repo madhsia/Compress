@@ -16,5 +16,5 @@ bool HCNode::operator<(const HCNode& other) {
 		return count > other.count;
 	}
 	//compare symbols if they are the same
-	return symbol < other.symbol;
+	return symbol > other.symbol;
 }
