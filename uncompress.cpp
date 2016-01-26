@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
 	outFile.open(argv[2], ofstream::out);
 
 	while (1) {
-		int symbol = inFile.get();
+		//int symbol = inFile.get();
 		if (inFile.eof()) break;
 	 	outFile << (char)huffmanTree.decode(inFile);
 	 }
