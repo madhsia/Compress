@@ -91,7 +91,6 @@ void HCTree::build(const vector<int>& freqs) {
  */
 void HCTree::encode(byte symbol, ofstream& out) const {
 	HCNode* n = leaves[symbol];
-	cout << n->symbol << "\n";
 	string code;
 
 	while (n != root) {
@@ -109,7 +108,7 @@ void HCTree::encode(byte symbol, ofstream& out) const {
 		reverse = code[i] + reverse;
 	}
 	out << reverse;
-	cout << reverse << "\n";
+	//cout << reverse << "\n";
 }
 
 
@@ -130,13 +129,13 @@ int HCTree::decode(ifstream& in) const {
 	while (n->c1 != 0 || n->c0 != 0) {
 		//converting the ascii value to decimal
 		data = in.get() - '0';
-		if (in.eof()) break;
-		cout << data << "\n";
+		if (in.eof()) return 0;
+		//cout << data << "\n";
 		if (data == 0) {
 			n = n->c0;
 		}
-		//else if (data == 1) {
-		else {
+		else if (data == 1) {
+		//else {
 			n = n->c1;
 		}
 	} 
