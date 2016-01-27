@@ -42,8 +42,8 @@ int main(int argc, char** argv) {
 
 	while (1) {
 		//int symbol = inFile.get();
-		if (inFile.eof()) break;
 	 	outFile << (char)huffmanTree.decode(inFile);
+	 	if (inFile.eof()) break;
 	 }
 
 }
