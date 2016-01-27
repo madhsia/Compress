@@ -1,14 +1,15 @@
 /* 
  * Madeline Hsia
  * Timothy Koh
- * File: BitInputStream.hpp
+ * File: BitOutputStream.hpp
  */ 
- 
+
 //#include "HCTree.hpp"
 //#include "HCNode.hpp"
 #include <iostream> 
 
-
+/** A ostream class for bits
+ */
 class BitOutputStream {
 private:
 	char buf;
@@ -20,11 +21,11 @@ public:
 	* the given ostream for output.
 	*/
 	BitOutputStream(std::ostream & os) : out(os), buf(0), nbits(0) {
-
+		//clear buffer and bit counter
 	}	
 
 	//Send the buffer to the output, and clear
-	void BitInputStream::flush() { 
+	void flush() {
 		// one byte buffer of bits
 		// how many bits have been written to buf
 		// clear buffer and bit counter
@@ -32,4 +33,4 @@ public:
 		out.flush();
 		buf = nbits = 0;
 	}
-}
+};
