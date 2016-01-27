@@ -31,8 +31,6 @@ int main(int argc, char** argv) {
 		}
 	}
 
-	//cout << freqs[97];
-
 	//build tree 
 	HCTree huffmanTree;
 	huffmanTree.build(freqs);
@@ -41,7 +39,6 @@ int main(int argc, char** argv) {
 	outFile.open(argv[2], ofstream::out);
 
 	while (1) {
-		//int symbol = inFile.get();
 	 	outFile << (char)huffmanTree.decode(inFile);
 	 	if (inFile.eof()) break;
 	 }
