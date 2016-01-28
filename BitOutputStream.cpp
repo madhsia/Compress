@@ -16,7 +16,8 @@ using namespace std;
  */
 
 void BitOutputStream::writeBit(int i) {
-	//Is the bit full? Then flush it.
+	
+	//Is the bit fill? Then flush it.
 	if(nbits == 8) {
 		flush();
 	}
@@ -25,14 +26,15 @@ void BitOutputStream::writeBit(int i) {
 	// at the current index
 	buf = (buf | (i << nbits));
 
+	//cout << "buf is: " << buf << "and the i is: "  << i << " and the nbit is: " << nbits << endl;
 	// Increment the index
 	nbits++;
 }
 
 void BitOutputStream::flush() {
-	bitset<8> x(buf);
-	cout << x << "\n";
-
+	
+	//bitset<8> x(buf);
+	//cout << x << "\n";
 	out.put(buf);
 	out.flush();
 	buf = nbits = 0;

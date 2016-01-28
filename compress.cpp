@@ -25,13 +25,16 @@ int main(int argc, char** argv) {
 	inFile.open(argv[1],ifstream::in);
 	vector<int> freqs(256,0);
 
-
 	//computing frequency
 	while (1) {
 		int theSymbol = inFile.get();
 		if (inFile.eof()) break;
 		freqs[theSymbol]++;
 	}
+
+	inFile.clear();
+	inFile.seekg(0,ios::end);
+	int fileSize = inFile.tellg();
 
 	inFile.close();
 

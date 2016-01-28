@@ -162,13 +162,14 @@ int HCTree::decode(BitInputStream& in) const {
 
 	while (n->c0 != 0 || n->c1 != 0) {
 		data = in.readBit();
-		cout << data;
+		//cout << "data here is: " << data << endl;
 		if (data == 0) {
 			n = n->c0;
 		}
 		if (data == 1) {
 			n = n->c1;
 		}
-	}
+		//cout << "data now is: " << data << endl;
+ 	}
 	return n->symbol;
 }

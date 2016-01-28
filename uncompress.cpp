@@ -21,6 +21,7 @@ int main(int argc, char** argv) {
 	ofstream outFile;
 
 	vector<int> freqs(256,0);
+	int sum;
 
 	//read header, count frequency
 	inFile.open(argv[1],ifstream::binary);
@@ -28,20 +29,26 @@ int main(int argc, char** argv) {
 		for (int i=0; i < freqs.size(); i++) {
 			getline(inFile, frequency);
 			freqs[i] = atoi(frequency.c_str());
+			sum += freqs[i];
 		}
 	}
 
 	//build tree 
 	HCTree huffmanTree;
-	cout << freqs[98];
+	//cout << freqs[98];
 	huffmanTree.build(freqs);
 
 	//call decode on each encoded symbol
 	outFile.open(argv[2], ofstream::out);
 	BitInputStream bitIn = BitInputStream(inFile);
 
-	while (1) {
+	//for (int i=0; 
+	/*while (1) {
+		if (inFile.eof()) break;
 	 	outFile << (char)huffmanTree.decode(bitIn);
-	 	if (inFile.eof()) break;
+	 }*/
+
+	 for (int i=0; i<sum; i++) {
+	 	outFile << (char)huffmanTree.decode(bitIn);
 	 }
 }
