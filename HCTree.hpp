@@ -67,7 +67,7 @@ public:
      *  PRECONDITION: build() has been called, to create the coding
      *  tree, and initialize root pointer and leaves vector.
      */
-    //int decode(BitInputStream& in) const;
+    int decode(BitInputStream& in) const;
 
     /** Return the symbol coded in the next sequence of bits (represented as 
      *  ASCII text) from the ifstream.
@@ -76,7 +76,7 @@ public:
      *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT BE USED
      *  IN THE FINAL SUBMISSION.
      */
-    int decode(ifstream& in) const;
+    //int decode(ifstream& in) const;
 };
 
 #endif // HCTREE_HPP

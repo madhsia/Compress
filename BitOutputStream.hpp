@@ -28,14 +28,7 @@ public:
 	}	
 
 	//Send the buffer to the output, and clear
-	void flush() {
-		// one byte buffer of bits
-		// how many bits have been written to buf
-		// clear buffer and bit counter
-		out.put(buf); 
-		out.flush();
-		buf = nbits = 0;
-	}
+	void flush();
 
 	void writeBit(int i);
 };

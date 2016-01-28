@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
 	vector<int> freqs(256,0);
 
 	//read header, count frequency
-	inFile.open(argv[1],ifstream::in);
+	inFile.open(argv[1],ifstream::binary);
 	if (inFile.good()) {
 		for (int i=0; i < freqs.size(); i++) {
 			getline(inFile, frequency);
@@ -37,9 +37,10 @@ int main(int argc, char** argv) {
 
 	//call decode on each encoded symbol
 	outFile.open(argv[2], ofstream::out);
+	BitInputStream bitIn = BitInputStream(inFile);
 
 	while (1) {
-	 	outFile << (char)huffmanTree.decode(inFile);
+	 	outFile << (char)huffmanTree.decode(bitIn);
 	 	if (inFile.eof()) break;
 	 }
 

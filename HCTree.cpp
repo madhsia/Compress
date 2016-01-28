@@ -108,27 +108,6 @@ void HCTree::build(const vector<int>& freqs) {
 	out << reverse;
 } */
 
-void HCTree::encode(byte symbol, BitOutputStream& out) const {
-
-	HCNode* n = leaves[symbol];
-	string code;
-
-	while (n != root) {
-		if (n == n->p->c0) {
-			code.append("0");
-		}
-		else {
-			code.append("1");
-		}
-		n = n->p;
-	}
-	
-	for(int i = code.length(); i > 0; i--) {
-		out.writeBit((code[i] - '0'));
-	}
-}
-
-
 /** Return the symbol coded in the next sequence of bits (represented as 
  *  ASCII text) from the ifstream.
  *  PRECONDITION: build() has been called, to create the coding
@@ -136,7 +115,7 @@ void HCTree::encode(byte symbol, BitOutputStream& out) const {
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT BE USED
  *  IN THE FINAL SUBMISSION.
  */
-int HCTree::decode(ifstream& in) const {
+/*int HCTree::decode(ifstream& in) const {
 	//uses BitInputStream
 	HCNode* n = root;
 	int data = 0;
@@ -156,5 +135,40 @@ int HCTree::decode(ifstream& in) const {
 	} 
 	//return the current leaf's symbol
 	return (int)n->symbol;
+}*/
+
+void HCTree::encode(byte symbol, BitOutputStream& out) const {
+
+	HCNode* n = leaves[symbol];
+	string code;
+
+	while (n != root) {
+		if (n == n->p->c0) {
+			code.append("0");
+		}
+		else {
+			code.append("1");
+		}
+		n = n->p;
+	}
+	
+	for(int i = code.length()-1; i >= 0; i--) {
+		out.writeBit((int)(code[i]));
+	}
 }
 
+int HCTree::decode(BitInputStream& in) const {
+	HCNode* n = root;
+	int data = 0;
+
+	while (n->c0 != 0 || n->c1 != 0) {
+		data = in.readBit();
+		if (data == 0) {
+			n = n->c0;
+		}
+		if (data == 1) {
+			n = n->c1;
+		}
+	}
+	return n->symbol;
+}

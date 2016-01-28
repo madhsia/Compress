@@ -3,7 +3,10 @@
  * Timothy Koh
  * File: BitInputStream.hpp
  */
+
+
 #include <iostream>
+
 
 class BitInputStream  {
 
@@ -22,10 +25,6 @@ public:
 	}
 
 	/** Fill the buffer from the input */
-	void fill() {
-		buf = in.get(); 
-		nbits = 0;
-	}
-
+	void fill();
 	int readBit();
 };

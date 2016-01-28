@@ -17,13 +17,21 @@ using namespace std;
 
 void BitOutputStream::writeBit(int i) {
 	//Is the bit full? Then flush it.
-	if(nbit == 8) {
+	if(nbits == 8) {
 		flush();
 	}
 
 	// Write the least significant bit of i onto the butter
 	// at the current index
+	buf = (buf | (i << nbits));
 
 	// Increment the index
 	nbits++;
 }
+
+void BitOutputStream::flush() {
+	out.put(buf);
+	out.flush();
+	buf = nbits = 0;
+}
+

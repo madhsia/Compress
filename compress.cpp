@@ -42,13 +42,13 @@ int main(int argc, char** argv) {
 	//create new file to write
 	ofstream outFile;
 	BitOutputStream bitOutFile = BitOutputStream(outFile);
-	outFile.open(argv[2],ofstream::out);
+	outFile.open(argv[2],ofstream::binary);
 
-	//for each element, print its frequency
+	/*//for each element, print its frequency
 	for (int i=0; i<freqs.size(); i++) {
 		//outFile << freqs[i] << "\n";
 		outFile.write((char*)&freqs[i], sizeof(int));
-	}
+	}*/
 
 	inFile.open(argv[1],ifstream::in);
 	while(1) {
@@ -56,6 +56,8 @@ int main(int argc, char** argv) {
 		if (inFile.eof()) break;
 		huffmanTree.encode(symbol, bitOutFile);
 	}
+
+	 bitOutFile.flush();
 
 	 inFile.close();
 	 outFile.close();
