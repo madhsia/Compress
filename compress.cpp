@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
 		//outFile.write((char*)&freqs[i], sizeof(int));
 	}
 
-	inFile.open(argv[1],ifstream::in);
+	inFile.open(argv[1],ifstream::binary); //change to binary
 	while(1) {
 		int symbol = inFile.get();
 		if (inFile.eof()) break;

@@ -13,6 +13,7 @@
  using namespace std;
 
  int BitInputStream::readBit() {
+ 	
  	int bit;
  	//If all bits in the buffer are read, fill buffer first
  	if(nbits == 8) {

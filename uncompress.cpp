@@ -39,14 +39,8 @@ int main(int argc, char** argv) {
 	huffmanTree.build(freqs);
 
 	//call decode on each encoded symbol
-	outFile.open(argv[2], ofstream::out);
+	outFile.open(argv[2], ofstream::binary); //changed to binary
 	BitInputStream bitIn = BitInputStream(inFile);
-
-	//for (int i=0; 
-	/*while (1) {
-		if (inFile.eof()) break;
-	 	outFile << (char)huffmanTree.decode(bitIn);
-	 }*/
 
 	 for (int i=0; i<sum; i++) {
 	 	outFile << (char)huffmanTree.decode(bitIn);
