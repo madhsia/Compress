@@ -34,4 +34,3 @@ void BitOutputStream::flush() {
 	out.flush();
 	buf = nbits = 0;
 }
-
