@@ -37,7 +37,7 @@ public:
 		buf = nbits = 0;
 	}
 
-	void writebit(int i);
+	void writeBit(int i);
 };
 
 #endif // BITOUTPUTSTREAM_HPP

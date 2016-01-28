@@ -124,7 +124,7 @@ void HCTree::encode(byte symbol, BitOutputStream& out) const {
 	}
 	
 	for(int i = code.length(); i > 0; i--) {
-		out.writebit((code[i] - '0'));
+		out.writeBit((code[i] - '0'));
 	}
 }
 
