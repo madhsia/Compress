@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include "BitOutputStream.hpp"
-
+#include <bitset> 
 using namespace std;
 
 
@@ -30,6 +30,9 @@ void BitOutputStream::writeBit(int i) {
 }
 
 void BitOutputStream::flush() {
+	bitset<8> x(buf);
+	cout << x << "\n";
+
 	out.put(buf);
 	out.flush();
 	buf = nbits = 0;

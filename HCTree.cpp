@@ -138,7 +138,6 @@ void HCTree::build(const vector<int>& freqs) {
 }*/
 
 void HCTree::encode(byte symbol, BitOutputStream& out) const {
-
 	HCNode* n = leaves[symbol];
 	string code;
 
@@ -163,6 +162,7 @@ int HCTree::decode(BitInputStream& in) const {
 
 	while (n->c0 != 0 || n->c1 != 0) {
 		data = in.readBit();
+		cout << data;
 		if (data == 0) {
 			n = n->c0;
 		}

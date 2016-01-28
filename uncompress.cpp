@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
 
 	//build tree 
 	HCTree huffmanTree;
+	cout << freqs[98];
 	huffmanTree.build(freqs);
 
 	//call decode on each encoded symbol
@@ -43,5 +44,4 @@ int main(int argc, char** argv) {
 	 	outFile << (char)huffmanTree.decode(bitIn);
 	 	if (inFile.eof()) break;
 	 }
-
 }

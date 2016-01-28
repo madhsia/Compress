@@ -21,10 +21,11 @@ public:
 	*/
 	BitInputStream(std::istream & is) : in(is) { 
 		buf = 0; // clear buffer
-		//nbits = ?? // initialize bit index
+		nbits = 8; // initialize bit index
 	}
 
 	/** Fill the buffer from the input */
 	void fill();
+
 	int readBit();
 };
