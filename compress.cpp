@@ -8,6 +8,7 @@
 #include "HCTree.hpp"
 #include "HCNode.hpp"
 #include <iostream>
+#include <fstream>
 #include <queue>
 
 using namespace std;
@@ -22,8 +23,8 @@ int main(int argc, char** argv) {
 	 */
 	ifstream inFile;
 	inFile.open(argv[1],ifstream::in);
-
 	vector<int> freqs(256,0);
+
 
 	//computing frequency
 	while (1) {
@@ -40,18 +41,20 @@ int main(int argc, char** argv) {
 
 	//create new file to write
 	ofstream outFile;
+	BitOutputStream bitOutFile = BitOutputStream(outFile);
 	outFile.open(argv[2],ofstream::out);
 
 	//for each element, print its frequency
 	for (int i=0; i<freqs.size(); i++) {
-		outFile << freqs[i] << "\n";
+		//outFile << freqs[i] << "\n";
+		outFile.write((char*)&freqs[i], sizeof(int));
 	}
 
 	inFile.open(argv[1],ifstream::in);
 	while(1) {
 		int symbol = inFile.get();
 		if (inFile.eof()) break;
-		huffmanTree.encode(symbol, outFile);
+		huffmanTree.encode(symbol, bitOutFile);
 	}
 
 	 inFile.close();

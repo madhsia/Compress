@@ -4,6 +4,9 @@
  * File: BitOutputStream.hpp
  */ 
 
+#ifndef BITOUTPUTSTREAM_HPP
+#define BITOUTPUTSTREAM_HPP
+
 //#include "HCTree.hpp"
 //#include "HCNode.hpp"
 #include <iostream> 
@@ -33,4 +36,8 @@ public:
 		out.flush();
 		buf = nbits = 0;
 	}
+
+	void writebit(int i);
 };
+
+#endif // BITOUTPUTSTREAM_HPP
