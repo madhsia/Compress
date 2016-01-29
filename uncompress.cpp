@@ -40,9 +40,11 @@ int main(int argc, char** argv) {
 
 	//call decode on each encoded symbol
 	outFile.open(argv[2], ofstream::binary); //changed to binary
+	BitOutputStream bitOut = BitOutputStream(outFile);
 	BitInputStream bitIn = BitInputStream(inFile);
 
-	 for (int i=0; i<sum; i++) {
-	 	outFile << (char)huffmanTree.decode(bitIn);
+	 for (int i=0; i<(sum*8); i++) {
+	 	//outFile << (char)huffmanTree.decode(bitIn);
+	 	bitOut.writeBit((huffmanTree.decode(bitIn)-48));
 	 }
 }

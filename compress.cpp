@@ -27,6 +27,12 @@ int main(int argc, char** argv) {
 	BitInputStream bitInFile2 = BitInputStream(inFile);
 	vector<int> freqs(256,0);
 
+	//If the input file is non-existent
+	if (!inFile) { 
+		ofstream ofs(argv[2], std::ios::binary); 
+		exit(0);	
+	}
+
 	//computing frequency
 	while (1) {
 		int theSymbol = bitInFile1.readBit();
@@ -56,8 +62,7 @@ int main(int argc, char** argv) {
 	//while(1) {
 		int symbol = bitInFile2.readBit();
 		symbol += 48;
-		//cout << symbol << endl;
-		//if (inFile.eof()) break;
+		
 		huffmanTree.encode(symbol, bitOutFile);
 	}
 
