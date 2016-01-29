@@ -26,11 +26,11 @@ int main(int argc, char** argv) {
 	//read header, count frequency
 	inFile.open(argv[1],ifstream::binary);
 	if (inFile.good()) {
-		for (int i=0; i < freqs.size(); i++) {
-			getline(inFile, frequency);
-			freqs[i] = atoi(frequency.c_str());
-			sum += freqs[i];
-		}
+		getline(inFile, frequency);
+		freqs[48] = atoi(frequency.c_str());
+		getline(inFile, frequency);
+		freqs[49] = atoi(frequency.c_str());
+		sum = freqs[48] + freqs[49];
 	}
 
 	//build tree 
