@@ -77,6 +77,9 @@ public:
      *  IN THE FINAL SUBMISSION.
      */
     int decode(ifstream& in) const;
+
+    /*helper function to delete nodes*/
+    void deleteTree(HCNode* ptr);
 };
 
 #endif // HCTREE_HPP

@@ -12,8 +12,17 @@
 
  using namespace std;
 
+/*Recursive function to delete nodes*/
+void HCTree::deleteTree(HCNode* ptr) {
+  if(ptr == NULL) return;
+  deleteTree(ptr->c0); //delete left child
+  deleteTree(ptr->c1); //delete right child
+  delete ptr;
+}
+
  HCTree::~HCTree() {
- 	delete root;
+ 	deleteTree(root);
+ 	root = NULL;
  }
 
 
