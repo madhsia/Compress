@@ -86,7 +86,7 @@ void HCTree::build(const vector<int>& freqs) {
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT 
  *  BE USED IN THE FINAL SUBMISSION.
  */
-/*void HCTree::encode(byte symbol, ofstream& out) const {
+void HCTree::encode(byte symbol, ofstream& out) const {
 	HCNode* n = leaves[symbol];
 	string code;
 
@@ -105,7 +105,7 @@ void HCTree::build(const vector<int>& freqs) {
 		reverse = code[i] + reverse;
 	}
 	out << reverse;
-} */
+} 
 
 /** Return the symbol coded in the next sequence of bits (represented as 
  *  ASCII text) from the ifstream.
@@ -114,7 +114,7 @@ void HCTree::build(const vector<int>& freqs) {
  *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT BE USED
  *  IN THE FINAL SUBMISSION.
  */
-/*int HCTree::decode(ifstream& in) const {
+int HCTree::decode(ifstream& in) const {
 	//uses BitInputStream
 	HCNode* n = root;
 	int data = 0;
@@ -134,7 +134,7 @@ void HCTree::build(const vector<int>& freqs) {
 	} 
 	//return the current leaf's symbol
 	return (int)n->symbol;
-}*/
+}
 
 void HCTree::encode(byte symbol, BitOutputStream& out) const {
 	HCNode* n = leaves[symbol];

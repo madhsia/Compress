@@ -14,7 +14,6 @@ using namespace std;
  * the bit buffer, and increment the bit buffer index.
  * But flush the buffer first, if it is full.
  */
-
 void BitOutputStream::writeBit(int i) {
 	
 	//Is the bit fill? Then flush it.
@@ -31,11 +30,34 @@ void BitOutputStream::writeBit(int i) {
 	nbits++;
 }
 
+//flush the buffer to the output stream
 void BitOutputStream::flush() {
 	
-	bitset<8> x(buf);
-	cout << x << "\n";
+	//to print out 8 bits for testing
+	//bitset<8> x(buf);
+	//cout << x << "\n";
 	out.put(buf);
 	out.flush();
 	buf = nbits = 0;
 }
+
+//read a byte at a time
+void BitOutputStream::writeByte(int b) {
+	out.put(b);
+}
+
+//write an int to output a char at a time
+void BitOutputStream::writeInt(int i) {
+	char a = (i & 255);
+	char b = ((i >> 8) & (255));
+    char c = ((i >> 16) & (255));
+    char d = ((i >> 24) & (255));
+ 
+    out.put(a);
+    out.put(b);
+    out.put(c);
+    out.put(d);
+}
+
+
+

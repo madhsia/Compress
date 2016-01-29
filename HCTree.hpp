@@ -60,7 +60,7 @@ public:
      *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT 
      *  BE USED IN THE FINAL SUBMISSION.
      */
-    //void encode(byte symbol, ofstream& out) const;
+    void encode(byte symbol, ofstream& out) const;
 
 
     /** Return symbol coded in the next sequence of bits from the stream.
@@ -76,7 +76,7 @@ public:
      *  THIS METHOD IS USEFUL FOR THE CHECKPOINT BUT SHOULD NOT BE USED
      *  IN THE FINAL SUBMISSION.
      */
-    //int decode(ifstream& in) const;
+    int decode(ifstream& in) const;
 };
 
 #endif // HCTREE_HPP

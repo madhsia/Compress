@@ -22,26 +22,24 @@ int main(int argc, char** argv) {
 	 * followed by code for each symbol
 	 */
 	ifstream inFile;
-	inFile.open(argv[1],ifstream::binary);
-	BitInputStream bitInFile1 = BitInputStream(inFile);
-	BitInputStream bitInFile2 = BitInputStream(inFile);
+	inFile.open(argv[1],ifstream::in);
 	vector<int> freqs(256,0);
 
-	//If the input file is non-existent
 	if (!inFile) { 
 		ofstream ofs(argv[2], std::ios::binary); 
 		exit(0);	
 	}
-
+	
 	//computing frequency
 	while (1) {
-		int theSymbol = bitInFile1.readBit();
-		theSymbol += 48;
+		int theSymbol = inFile.get();
 		if (inFile.eof()) break;
 		freqs[theSymbol]++;
-		//cout << "Reading :"<< theSymbol << endl;
 	}
-	//cout << freqs[48] << endl;
+
+	inFile.clear();
+	inFile.seekg(0,ios::end);
+	int fileSize = inFile.tellg();
 
 	inFile.close();
 
@@ -54,15 +52,16 @@ int main(int argc, char** argv) {
 	BitOutputStream bitOutFile = BitOutputStream(outFile);
 	outFile.open(argv[2],ofstream::binary);
 
-	outFile << freqs[48] << endl;
-	outFile << freqs[49] << endl;
+	//for each element, print its frequency
+	for (int i=0; i<freqs.size(); i++) {
+		outFile << freqs[i] << "\n";
+		//outFile.write((char*)&freqs[i], sizeof(int));
+	}
 
 	inFile.open(argv[1],ifstream::binary); //change to binary
-	for(int i = 0; i < (freqs[48] + freqs[49]); i ++) {
-	//while(1) {
-		int symbol = bitInFile2.readBit();
-		symbol += 48;
-		
+	while(1) {
+		int symbol = inFile.get();
+		if (inFile.eof()) break;
 		huffmanTree.encode(symbol, bitOutFile);
 	}
 

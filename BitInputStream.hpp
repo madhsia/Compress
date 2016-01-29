@@ -27,5 +27,12 @@ public:
 	/** Fill the buffer from the input */
 	void fill();
 
+	//read one bit
 	int readBit();
+
+	//read one int
+	int readInt();
+
+	//read one byte
+	int readByte();
 };

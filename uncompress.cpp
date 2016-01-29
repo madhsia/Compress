@@ -16,7 +16,8 @@ using namespace std;
 int main(int argc, char** argv) {
 
 	string frequency;
-
+	
+	//create io files
 	ifstream inFile;
 	ofstream outFile;
 
@@ -26,11 +27,11 @@ int main(int argc, char** argv) {
 	//read header, count frequency
 	inFile.open(argv[1],ifstream::binary);
 	if (inFile.good()) {
-		getline(inFile, frequency);
-		freqs[48] = atoi(frequency.c_str());
-		getline(inFile, frequency);
-		freqs[49] = atoi(frequency.c_str());
-		sum = freqs[48] + freqs[49];
+		for (int i=0; i < freqs.size(); i++) {
+			getline(inFile, frequency);
+			freqs[i] = atoi(frequency.c_str());
+			sum += freqs[i];
+		}
 	}
 
 	//build tree 
@@ -40,11 +41,10 @@ int main(int argc, char** argv) {
 
 	//call decode on each encoded symbol
 	outFile.open(argv[2], ofstream::binary); //changed to binary
-	BitOutputStream bitOut = BitOutputStream(outFile);
 	BitInputStream bitIn = BitInputStream(inFile);
 
-	 for (int i=0; i<(sum*8); i++) {
-	 	//outFile << (char)huffmanTree.decode(bitIn);
-	 	bitOut.writeBit((huffmanTree.decode(bitIn)-48));
+	//decode each binary input 
+	 for (int i=0; i<sum; i++) {
+	 	outFile << (char)huffmanTree.decode(bitIn);
 	 }
 }

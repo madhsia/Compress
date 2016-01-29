@@ -31,6 +31,8 @@ public:
 	void flush();
 
 	void writeBit(int i);
+	void writeInt(int i);
+	void writeByte(int b);
 };
 
 #endif // BITOUTPUTSTREAM_HPP
