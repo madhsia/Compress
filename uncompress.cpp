@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
 	ofstream outFile;
 
 	vector<int> freqs(256,0);
-	int sum;
+	int sum = 0;
 
 	//read header, count frequency
 	inFile.open(argv[1],ifstream::binary);
@@ -47,4 +47,6 @@ int main(int argc, char** argv) {
 	 for (int i=0; i<sum; i++) {
 	 	outFile << (char)huffmanTree.decode(bitIn);
 	 }
+
+	 return 0;
 }
