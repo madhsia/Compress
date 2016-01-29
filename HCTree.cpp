@@ -47,8 +47,7 @@ void HCTree::build(const vector<int>& freqs) {
 
 	//if there's only one leaf
 	if (leavesPQ.size() == 1) {
-		//add empty node
-		//leavesPQ.push(new HCNode(0,0));
+		//makes that leaf the root
 		root = leavesPQ.top();
 	}
 

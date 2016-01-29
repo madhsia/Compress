@@ -22,19 +22,18 @@ int main(int argc, char** argv) {
 	 * followed by code for each symbol
 	 */
 	ifstream inFile;
-	inFile.open(argv[1],ifstream::in);
+	inFile.open(argv[1],ifstream::binary);
+	BitInputStream bitInFile = BitInputStream(inFile);
 	vector<int> freqs(256,0);
 
 	//computing frequency
 	while (1) {
-		int theSymbol = inFile.get();
+		int theSymbol = bitInFile.readBit();
+		theSymbol += 48;
 		if (inFile.eof()) break;
 		freqs[theSymbol]++;
 	}
-
-	inFile.clear();
-	inFile.seekg(0,ios::end);
-	int fileSize = inFile.tellg();
+	//cout << freqs[48] << endl;
 
 	inFile.close();
 
@@ -47,15 +46,15 @@ int main(int argc, char** argv) {
 	BitOutputStream bitOutFile = BitOutputStream(outFile);
 	outFile.open(argv[2],ofstream::binary);
 
-	//for each element, print its frequency
-	for (int i=0; i<freqs.size(); i++) {
-		outFile << freqs[i] << "\n";
-		//outFile.write((char*)&freqs[i], sizeof(int));
-	}
+	outFile << freqs[48] << endl;
+	outFile << freqs[49] << endl;
 
 	inFile.open(argv[1],ifstream::binary); //change to binary
-	while(1) {
-		int symbol = inFile.get();
+	for(int i = 0; i < 8; i ++) {
+	//while(1) {
+		int symbol = bitInFile.readBit();
+		symbol += 48;
+		cout << symbol << endl;
 		if (inFile.eof()) break;
 		huffmanTree.encode(symbol, bitOutFile);
 	}
