@@ -24,14 +24,15 @@ int main(int argc, char** argv) {
 	ifstream inFile;
 	inFile.open(argv[1],ifstream::in);
 	vector<int> freqs(256,0);
-	int unique;
 
+	if (!inFile) { 
+		ofstream ofs(argv[2], std::ios::binary); 
+		exit(0);	
+	}
+	
 	//computing frequency
 	while (1) {
-		byte theSymbol = inFile.get();
-		if (freqs[int(theSymbol)] == 0) {
-			unique++;
-		}
+		int theSymbol = inFile.get();
 		if (inFile.eof()) break;
 		freqs[theSymbol]++;
 	}
@@ -51,15 +52,9 @@ int main(int argc, char** argv) {
 	BitOutputStream bitOutFile = BitOutputStream(outFile);
 	outFile.open(argv[2],ofstream::binary);
 
-	//print # of unique symbols
-	bitOutFile.writeInt(unique);
 	//for each element, print its frequency
 	for (int i=0; i<freqs.size(); i++) {
-		if (freqs[i] !=0 ){
-			bitOutFile.writeByte(i);
-			bitOutFile.writeInt(freqs[i]);
-		}
-		//outFile << freqs[i] << "\n";
+		outFile << freqs[i] << "\n";
 		//outFile.write((char*)&freqs[i], sizeof(int));
 	}
 
