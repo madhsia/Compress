@@ -3,6 +3,7 @@
  * Timothy Koh
  * File: uncompress.cpp
  * main for decoding
+ * Uncompress the compressed file, taking in two arguments
  */ 
 
 #include "HCTree.hpp"
@@ -23,39 +24,42 @@ int main(int argc, char** argv) {
 
 	vector<int> freqs(256,0);
 	int sum = 0;
+	int nextChar;
 
 	//read header, count frequency
 	inFile.open(argv[1],ifstream::binary);
-	getline(inFile, tempString);
-	int unique = atoi(tempString.c_str());
-	
-	if (inFile.good()) {
-		for (int i=0; i < unique; i++) {
-			getline(inFile, tempString);
-			int index = atoi(tempString.c_str());
-			getline(inFile, tempString);
-			int freq = atoi(tempString.c_str());
+	BitInputStream bitInFile = BitInputStream(inFile);
+	int unique = bitInFile.readByte();
 
-			freqs[index] = freq;
-			sum += freqs[i];
+	if (inFile.good()) {
+		//for each symbol in the header 
+		for (int i=0; i < unique; i++) {
+			//read the index of unique chars
+			int index = bitInFile.readByte();
+			//read its frequency
+			nextChar = bitInFile.readInt();
+			//set frequency at specific index of freqs
+			freqs[index] = nextChar;
+
+			sum += nextChar;
 		}
 	}
 
-	//build tree 
+	//build tree /
 	HCTree huffmanTree;
-	//cout << freqs[98];
 	huffmanTree.build(freqs);
 
 	//call decode on each encoded symbol
 	outFile.open(argv[2], ofstream::binary); //changed to binary
-	BitInputStream bitIn = BitInputStream(inFile);
 
-	int i = (unique*2)+1;
 	//decode each binary input 
-	 for (i; i<sum; i++) {
-	 	inFile.get();
-	 	outFile << (char)huffmanTree.decode(bitIn);
-	 }
+	for (int i=0; i<sum; i++) {
+		outFile << (char)huffmanTree.decode(bitInFile);
+	} 
 
-	 return 0;
+	//close files
+	inFile.close();
+	outFile.close();
+
+	return 0;
 }

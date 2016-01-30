@@ -2,6 +2,8 @@
  * Madeline Hsia
  * Timothy Koh
  * File: BitInputStream.cpp
+ * implementing functions from BitInputStream.hpp
+ * in order to read in bits
  */
 
  #ifndef BITINPUTSTREAM_HPP
@@ -44,16 +46,19 @@ int BitInputStream::readByte() {
 
 /*read ints 1 byte at a time and return an integer*/
 int BitInputStream::readInt() {
+	//get four bytes
 	int byte1 = in.get();
 	int byte2 = in.get();
 	int byte3 = in.get();
 	int byte4 = in.get();
 
+	//shift each byte into a 4 byte int
 	int out = byte1;
 	out |= (byte2 << 8);
 	out |= (byte3 << 16);
     out |= (byte4 << 24);
 
+    //return the int
    return out; 
 }
 

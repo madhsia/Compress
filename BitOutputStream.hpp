@@ -30,8 +30,13 @@ public:
 	//Send the buffer to the output, and clear
 	void flush();
 
+	//write one bit
 	void writeBit(int i);
+
+	//write four bytes (int)
 	void writeInt(int i);
+
+	//write one byte
 	void writeByte(int b);
 };
 

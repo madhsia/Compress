@@ -2,6 +2,7 @@
  * Madeline Hsia
  * Timothy Koh
  * File: BitOutputStream.cpp
+ * Implement functions in BitOutputStream.hpp to write bits to file
  */
 
 #include <iostream>
@@ -48,11 +49,13 @@ void BitOutputStream::writeByte(int b) {
 
 //write an int to output a char at a time
 void BitOutputStream::writeInt(int i) {
+	//shift the separate 4 bytes in the int i paseed in
 	char a = (i & 255);
 	char b = ((i >> 8) & (255));
     char c = ((i >> 16) & (255));
     char d = ((i >> 24) & (255));
  
+ 	//put char in file
     out.put(a);
     out.put(b);
     out.put(c);

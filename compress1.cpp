@@ -55,7 +55,6 @@ int main(int argc, char** argv) {
 	//for each element, print its frequency
 	for (int i=0; i<freqs.size(); i++) {
 		outFile << freqs[i] << "\n";
-		//outFile.write((char*)&freqs[i], sizeof(int));
 	}
 
 	inFile.open(argv[1],ifstream::binary); //change to binary

@@ -28,18 +28,16 @@ int main(int argc, char** argv) {
 
 	//computing frequency
 	while (1) {
+		//get the new symbol from file
 		byte theSymbol = inFile.get();
-
 		if (inFile.eof()) break;
+		//count the number of unique symbols there are
 		if (freqs[int(theSymbol)] == 0) {
 			unique++;
 		}
+		//increment freqs when there is such symbol
 		freqs[theSymbol]++;
 	}
-
-	inFile.clear();
-	inFile.seekg(0,ios::end);
-	int fileSize = inFile.tellg();
 
 	inFile.close();
 
@@ -53,30 +51,30 @@ int main(int argc, char** argv) {
 	outFile.open(argv[2],ofstream::binary);
 
 	//print # of unique symbols
-	//bitOutFile.writeInt(unique);
-	outFile << unique << endl;
+	bitOutFile.writeByte(unique);
+	
 	//for each element, print its frequency
 	for (int i=0; i<freqs.size(); i++) {
 		if (freqs[i] !=0 ){
-			//bitOutFile.writeByte(i);
-			//bitOutFile.writeInt(freqs[i]);
-			outFile << i << endl;
-			outFile << freqs[i] << endl;
-
+			bitOutFile.writeByte(i);
+			bitOutFile.writeInt(freqs[i]);
 		}
-		//outFile << freqs[i] << "\n";
-		//outFile.write((char*)&freqs[i], sizeof(int));
 	}
 
 	inFile.open(argv[1],ifstream::binary); //change to binary
+	
+	//encode each symbol from file
 	while(1) {
 		int symbol = inFile.get();
 		if (inFile.eof()) break;
+		//and put it in bitOutfile
 		huffmanTree.encode(symbol, bitOutFile);
 	}
 
+	//flush the remaining bits from bitOutFile
 	 bitOutFile.flush();
 
+	 //close files
 	 inFile.close();
 	 outFile.close();
 

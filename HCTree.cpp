@@ -145,47 +145,50 @@ int HCTree::decode(ifstream& in) const {
 	return (int)n->symbol;
 }
 
-//encode method passing in a symbol and a bit output stream
+/* encode for binary, passing in a symbol and bit output stream*/
 void HCTree::encode(byte symbol, BitOutputStream& out) const {
-	//initialize node to encode and a string
+	//initialize the leaves and a string to write to
 	HCNode* n = leaves[symbol];
 	string code;
 
 	while (n != root) {
-		//append correct binary to string
+		//append correct binary into string
 		if (n == n->p->c0) {
 			code.append("0");
 		}
 		else {
 			code.append("1");
 		}
+		//traverse up the tree
 		n = n->p;
 	}
 	
-	//reading backwards, write bit to output stream
+	//reading string backwards
 	for(int i = code.length()-1; i >= 0; i--) {
+		//write bit to bit output
 		out.writeBit((code[i])-'0');
 	}
 }
 
-//decode method passing in a bitinput stream
+/* decode for binary, passing in a binary input stream*/
 int HCTree::decode(BitInputStream& in) const {
-	//start at root 
+	//starting at root
 	HCNode* n = root;
 	int data = 0;
 
-	//while there is a child
+	//while childs exist
 	while (n->c0 != 0 || n->c1 != 0) {
-		//read bit
+		//read the bit
 		data = in.readBit();
-		//traverse down tree based on whats read
+		//based on its binary encoding
 		if (data == 0) {
+			//traverse down the tree
 			n = n->c0;
 		}
 		if (data == 1) {
 			n = n->c1;
 		}
  	}
- 	//return the correct decoded symbol
+ 	//return the symbol found
 	return n->symbol;
 }
