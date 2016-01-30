@@ -15,7 +15,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-	string frequency;
+	string tempString;
 	
 	//create io files
 	ifstream inFile;
@@ -26,10 +26,17 @@ int main(int argc, char** argv) {
 
 	//read header, count frequency
 	inFile.open(argv[1],ifstream::binary);
+	getline(inFile, tempString);
+	int unique = atoi(tempString.c_str());
+	
 	if (inFile.good()) {
-		for (int i=0; i < freqs.size(); i++) {
-			getline(inFile, frequency);
-			freqs[i] = atoi(frequency.c_str());
+		for (int i=0; i < unique; i++) {
+			getline(inFile, tempString);
+			int index = atoi(tempString.c_str());
+			getline(inFile, tempString);
+			int freq = atoi(tempString.c_str());
+
+			freqs[index] = freq;
 			sum += freqs[i];
 		}
 	}
@@ -43,8 +50,10 @@ int main(int argc, char** argv) {
 	outFile.open(argv[2], ofstream::binary); //changed to binary
 	BitInputStream bitIn = BitInputStream(inFile);
 
+	int i = (unique*2)+1;
 	//decode each binary input 
-	 for (int i=0; i<sum; i++) {
+	 for (i; i<sum; i++) {
+	 	inFile.get();
 	 	outFile << (char)huffmanTree.decode(bitIn);
 	 }
 
